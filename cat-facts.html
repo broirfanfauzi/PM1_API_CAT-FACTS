@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Cat Fact</title>
+  <style>
+    /* Body styling */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f3f4f6;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    /* Header styling */
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #4a90e2;
+    }
+
+    /* Button styling */
+    button {
+      background-color: #4a90e2;
+      color: white;
+      font-size: 1.2rem;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #357abd;
+      transform: scale(1.05);
+    }
+
+    /* Fact container styling */
+    .fact-container {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-top: 20px;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #cat-fact {
+      font-size: 1.5rem;
+      color: #555;
+    }
+
+    /* Footer styling */
+    footer {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <h1>Random Cat Facts</h1>
+  <button onclick="getCatFact()">Get a Cat Fact</button>
+
+  <div class="fact-container">
+    <p id="cat-fact">Click the button to get a random cat fact!</p>
+  </div>
+
+  <footer>
+    Powered by <a href="https://rapidapi.com/" target="_blank" style="color: #4a90e2; text-decoration: none;">RapidAPI</a>
+  </footer>
+
+  <script>
+    async function getCatFact() {
+      const url = 'https://random-cat-fact.p.rapidapi.com/';
+      const options = {
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': '4ee711cbe5mshdcc9da1c735e215p18da43jsn48239608704f',
+          'x-rapidapi-host': 'random-cat-fact.p.rapidapi.com'
+        }
+      };
+
+      try {
+        const response = await fetch(url, options);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+        const result = await response.json();
+        document.getElementById("cat-fact").textContent = result.fact || "No fact found!";
+      } catch (error) {
+        document.getElementById("cat-fact").textContent = `Error: ${error.message}`;
+      }
+    }
+  </script>
+</body>
+</html>
